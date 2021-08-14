@@ -1,0 +1,79 @@
+<div class="calculator-container">
+    <div class="form-container">
+        <h1>Hypergeometric Calculator</h1>
+        <form [formGroup]="hgForm" (submit)="onSubmit()">
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Population Size</mat-label>
+                <input 
+                    matInput
+                    formControlName="populationSize"
+                    type="number"
+                    required
+                >
+                <mat-error *ngIf="hgForm.controls.populationSize.touched && hgForm.controls.populationSize.invalid">
+                    <span *ngIf="hgForm.controls.populationSize.errors?.required">Population Size is required</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Number of Successes in Population</mat-label>
+                <input 
+                    matInput
+                    formControlName="populationSuccesses"
+                    type="number"
+                    required
+                >
+                <mat-error *ngIf="hgForm.controls.populationSuccesses.touched && hgForm.controls.populationSuccesses.invalid">
+                    <span *ngIf="hgForm.controls.populationSuccesses.errors?.required">Number of Successes in Population is required</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Sample Size</mat-label>
+                <input 
+                    matInput
+                    formControlName="sampleSize"
+                    type="number"
+                    required
+                >
+                <mat-error *ngIf="hgForm.controls.sampleSize.touched && hgForm.controls.sampleSize.invalid">
+                    <span *ngIf="hgForm.controls.sampleSize.errors?.required">Sample Size is required</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Number of Successes in Sample</mat-label>
+                <input 
+                    matInput
+                    formControlName="sampleSuccesses"
+                    type="number"
+                    required
+                >
+                <mat-error *ngIf="hgForm.controls.sampleSuccesses.touched && hgForm.controls.sampleSuccesses.invalid">
+                    <span *ngIf="hgForm.controls.sampleSuccesses.errors?.required">Number of Successes in Sample is required</span>
+                </mat-error>
+            </mat-form-field>
+            <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="!hgForm.valid"
+            >Calculate
+            </button>
+        </form>
+        <div class="results-container" *ngIf="submitted && results">
+            <div class="label-column">
+                <p class="results-label">Hypergeometric Probability: P(X &#61; {{ sampleSuccessesToDisplay }})</p>
+                <p class="results-label">Cumulative Probability: P(X &#60; {{ sampleSuccessesToDisplay }})</p>
+                <p class="results-label">Cumulative Probability: P(X &#8804; {{ sampleSuccessesToDisplay }})</p>
+                <p class="results-label">Cumulative Probability: P(X &#62; {{ sampleSuccessesToDisplay }})</p>
+                <p class="results-label">Cumulative Probability: P(X &#8805; {{ sampleSuccessesToDisplay }})</p>
+            </div>
+            <div class="value-column">
+                <p class="results-value first-value">{{ results.equal.toFixed(2) }}%</p>
+                <p class="results-value">{{ results.lessThan.toFixed(2) }}%</p>
+                <p class="results-value">{{ results.lessThanOrEqual.toFixed(2) }}%</p>
+                <p class="results-value">{{ results.greaterThan.toFixed(2) }}%</p>
+                <p class="results-value">{{ results.greaterThanOrEqual.toFixed(2) }}%</p>
+            </div>
+        </div>
+    </div>
+</div>
+
